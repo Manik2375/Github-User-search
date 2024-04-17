@@ -1,0 +1,193 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --bg-clr: hsl(206, 88%, 94%);
+  --bg-clr-2: hsl(203, 80%, 98%);
+  --bg-clr-3: hsl(203, 79%, 85%);
+  --input-clr: hsl(207, 31%, 6%);
+  --img-placeholder-clr: hsl(206, 87%, 70%);
+  --primary-txt-clr: hsl(206, 87%, 50%);
+  --secondary-txt-clr: hsl(206, 87%, 65%);
+  --outline-clr: hsl(225, 73%, 88%);
+
+  --space-half: calc(var(--space-1x) * 0.5);
+  --space-1x: min(1em, 2vw);
+  --space-2x: calc(var(--space-1x) * 2);
+  --space-3x: calc(var(--space-1x) * 3);
+
+  --bdr-rad: 0.25em;
+}
+html {
+  font-size: 18px;
+}
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-clr);
+  font-family: "Kanit", sans-serif;
+}
+.wrapper {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  max-width: 90em;
+  margin-inline: auto;
+}
+header {
+  width: 100%;
+  padding: max(var(--space-3x), 3em) var(--space-3x);
+  padding-bottom: var(--space-3x);
+}
+.input-form {
+  position: relative;
+}
+#grabber {
+  display: block;
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 0.7em;
+  margin-inline: auto;
+  border-radius: var(--bdr-rad);
+  background: var(--bg-clr-2);
+  border: 0;
+  font-family: inherit;
+}
+#grabber::placeholder {
+  color: var(--input-clr);
+}
+#grabber:focus-visible {
+  outline: 0.25em solid var(--outline-clr);
+}
+.search-icon {
+  position: absolute;
+  right: 1em;
+  top: 50%;
+  color: var(--primary-txt-clr);
+  font-size: 2rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+main {
+  position: relative;
+  padding: 0 var(--space-3x);
+  padding-bottom: var(--space-2x);
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+/* During no search */
+main::after {
+  content: "Search for Github users!";
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+  font-size: min(8vw, 2rem);
+  color: var(--secondary-txt-clr);
+  white-space: nowrap;
+  z-index: -1;
+}
+.result-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3x);
+  background: var(--bg-clr-2);
+  padding: var(--space-3x);
+  border-radius: calc(var(--bdr-rad) * 2);
+  flex: 1;
+  height: max-content;
+}
+.profile > img {
+  width: 10em;
+  height: 10em;
+  border-radius: 10em;
+}
+.username {
+  color: var(--primary-txt-clr);
+  font-weight: 500;
+  font-size: 1.7rem;
+  margin-top: var(--space-2x);
+}
+.description {
+  color: var(--secondary-txt-clr);
+  font-size: 1.2rem;
+  margin-left: var(--space-half);
+}
+
+.points {
+  width: 100%;
+  flex: 1 15em;
+  font-size: 1.3rem;
+  color: var(--primary-txt-clr);
+  display: flex;
+  gap: var(--space-2x);
+  flex-direction: column;
+  padding: var(--space-2x);
+  border-radius: calc(var(--bdr-rad) * 2.5);
+  background-color: var(--bg-clr-3);
+}
+.points > li {
+  margin-left: var(--space-3x);
+  padding-left: var(--space-3x);
+  text-overflow: ellipsis;
+}
+.points > li::marker {
+  font-size: 1rem;
+}
+.user-joined-date::marker {
+  content: "📆";
+}
+.user-link::marker {
+  content: "🔗";
+}
+.user-location::marker {
+  content: "📍";
+}
+a {
+  color: var(--primary-txt-clr);
+}
+a:hover,
+a:visited {
+  color: var(--secondary-txt-clr);
+}
+a:focus-visible {
+  outline: 0.15em solid blue;
+}
+@media screen and (min-width: 40em) {
+  .points > li::marker {
+    font-size: inherit;
+  }
+}
+@media screen and (min-width: 80em) {
+  header {
+    padding-block: var(--space-2x);
+  }
+
+  .result-card {
+    padding: var(--space-2x);
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  .username {
+    font-size: 2.5rem;
+    letter-spacing: 0.25rem;
+    margin-top: 0;
+    align-self: end;
+  }
+  .description {
+    font-size: 2rem;
+  }
+  .points {
+    font-size: 1.5rem;
+    flex: initial;
+    flex-basis: min(70%, 30em);
+  }
+  .points > li {
+    margin-left: var(--space-2x);
+    padding-left: var(--space-2x);
+  }
+}
