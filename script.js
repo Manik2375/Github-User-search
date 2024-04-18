@@ -36,10 +36,28 @@ const HTMLGenerator = ({
 </div>
 `;
 };
-async function submitData(e) {
+const userList = new Array();
+const userInList = (name) => {
+  let requiredUser = null;
+  for (const user of userList) {
+    if (user.login.toLowerCase() !== name.toLowerCase()) continue;
+    requiredUser = user;
+    break;
+  }
+  return requiredUser;
+};
+
+async function submitData() {
   const userName = input.value;
-  const resultUser = await fetch(`https://api.github.com/users/${userName}`);
-  const resultObj = await resultUser.json();
+  let resultUser;
+  let resultObj = userInList(userName);
+
+  if (!resultObj) {
+    resultUser = await fetch(`https://api.github.com/users/${userName}`);
+    resultObj = await resultUser.json();
+    userList.push(resultObj);
+  }
+
   const resultHTML = HTMLGenerator(resultObj);
 
   resultArea.innerHTML = "";
@@ -54,5 +72,5 @@ form.addEventListener("submit", (e) => {
 // Search icon click
 const searchIcon = document.querySelector(".search-icon");
 searchIcon.addEventListener("click", function () {
-  submitData()
+  submitData();
 });
