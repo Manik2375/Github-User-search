@@ -24,10 +24,10 @@ const HTMLGenerator = ({
             ).toLocaleDateString()}</li>
             <li class="user-link"><a href="${html_url}" title="${html_url}" target="_blank">Github link</a></li>
             <li class="user-link"><a href="${
-                blog === "" ? "#" : blog
-            }" title="${
-                blog === "" ? "Not Available" : blog
-            }" target="${blog === "" ? "_self" : "_target" }">Blog link</a></li>
+              blog === "" ? "#" : blog
+            }" title="${blog === "" ? "Not Available" : blog}" target="${
+    blog === "" ? "_self" : "_target"
+  }">Blog link</a></li>
             <li class="user-location" title="Location">${
               location === null ? "Not available :(" : location
             }</li>
@@ -36,9 +36,7 @@ const HTMLGenerator = ({
 </div>
 `;
 };
-
-form.addEventListener("submit", async function (e) {
-  e.preventDefault();
+async function submitData(e) {
   const userName = input.value;
   const resultUser = await fetch(`https://api.github.com/users/${userName}`);
   const resultObj = await resultUser.json();
@@ -46,10 +44,15 @@ form.addEventListener("submit", async function (e) {
 
   resultArea.innerHTML = "";
   resultArea.insertAdjacentHTML("beforeend", resultHTML);
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  submitData();
 });
 
 // Search icon click
 const searchIcon = document.querySelector(".search-icon");
-searchIcon.addEventListener("click", function() {
-    form.submit()
-})
+searchIcon.addEventListener("click", function () {
+  submitData()
+});
