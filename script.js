@@ -36,6 +36,7 @@ const HTMLGenerator = ({
 </div>
 `;
 };
+let currentUser;
 const userList = new Array();
 const userInList = (name) => {
   let requiredUser = null;
@@ -52,16 +53,23 @@ async function submitData() {
   if (!allowed) return;
 
   const userName = input.value;
+
+  if (currentUser?.login?.toLowerCase() === userName.toLowerCase()) return;
   let resultUser;
   let resultObj = userInList(userName);
 
   if (!resultObj) {
     resultUser = await fetch(`https://api.github.com/users/${userName}`);
     resultObj = await resultUser.json();
+    if (resultObj.message === "Not Found") {
+      alert("User not found");
+      return;
+    }
     userList.push(resultObj);
   }
 
   const resultHTML = HTMLGenerator(resultObj);
+  currentUser = resultObj;
 
   resultArea.innerHTML = "";
   resultArea.insertAdjacentHTML("beforeend", resultHTML);
