@@ -47,7 +47,10 @@ const userInList = (name) => {
   return requiredUser;
 };
 
+let allowed = true;
 async function submitData() {
+  if (!allowed) return;
+
   const userName = input.value;
   let resultUser;
   let resultObj = userInList(userName);
@@ -62,6 +65,12 @@ async function submitData() {
 
   resultArea.innerHTML = "";
   resultArea.insertAdjacentHTML("beforeend", resultHTML);
+
+  // Don't run function for 1.5 sec
+  allowed = false;
+  setTimeout(() => {
+    allowed = true;
+  }, 1500);
 }
 
 form.addEventListener("submit", (e) => {
