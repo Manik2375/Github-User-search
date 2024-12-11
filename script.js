@@ -84,6 +84,7 @@ async function submitData() {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   submitData();
+  input.blur();
 });
 
 // Search icon click

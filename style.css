@@ -73,8 +73,7 @@ header {
 }
 main {
   position: relative;
-  padding: 0 var(--space-3x);
-  padding-bottom: var(--space-2x);
+  padding: 0 var(--space-3x) calc(var(--space-3x) + .5rem);
   display: flex;
   flex: 1;
   overflow: hidden;
@@ -188,6 +187,9 @@ a:focus-visible {
 @media screen and (min-width: 40em) {
   .points > li::marker {
     font-size: inherit;
+  }
+  main {
+    padding-bottom: var(--space-2x)
   }
 }
 @media screen and (min-width: 80em) {
