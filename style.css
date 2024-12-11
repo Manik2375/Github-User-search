@@ -67,9 +67,17 @@ header {
   top: 50%;
   color: var(--primary-txt-clr);
   font-size: 2rem;
+  padding: var(--space-half);
   transform: translateY(-50%);
   cursor: pointer;
   user-select: none;
+  border-radius: 10em;
+}
+.search-icon:hover {
+  background-color: var(--bg-clr-3);
+}
+.search-icon:active {
+  background-color: var(--img-placeholder-clr);
 }
 main {
   position: relative;
